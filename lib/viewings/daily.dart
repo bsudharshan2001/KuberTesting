@@ -378,7 +378,7 @@ class _DailyState extends State<Daily> {
                     12.0,
                   ),
                   child: Text(
-                    "${months[today.month - 1]} ${today.year}",
+                    "${days[today.day - 1]} - ${today.month} - ${today.year}",
                     style: TextStyle(
                       fontSize: 32.0,
                       color: Colors.black87,
@@ -496,7 +496,7 @@ class _DailyState extends State<Daily> {
                       return Container();
                     }
 
-                    if (dataAtIndex.date.month == today.month) {
+                    if (dataAtIndex.date.day == today.day) {
                       if (dataAtIndex.type == "Income") {
                         return incomeTile(
                           dataAtIndex.amount,
@@ -842,66 +842,20 @@ class _DailyState extends State<Daily> {
 
   Widget selectDay() {
     return Padding(
+
       padding: EdgeInsets.all(
         8.0,
       ),
+
+
+    child: SingleChildScrollView(
+    scrollDirection: Axis.horizontal,
+
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
+
         children: [
-          InkWell(
-            onTap: () {
-              setState(() {
-                index = 3;
-                today = DateTime(now.year, now.month - 2, today.day);
-              });
-            },
-            child: Container(
-              height: 50.0,
-              width: MediaQuery.of(context).size.width * 0.3,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(
-                  8.0,
-                ),
-                color: index == 3 ? Static.PrimaryColor : Colors.white,
-              ),
-              alignment: Alignment.center,
-              child: Text(
-                days[now.day-3],
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.w600,
-                  color: index == 3 ? Colors.white : Static.PrimaryColor,
-                ),
-              ),
-            ),
-          ),
-          InkWell(
-            onTap: () {
-              setState(() {
-                index = 2;
-                today = DateTime(now.year, now.month - 1, today.day);
-              });
-            },
-            child: Container(
-              height: 50.0,
-              width: MediaQuery.of(context).size.width * 0.3,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(
-                  8.0,
-                ),
-                color: index == 2 ? Static.PrimaryColor : Colors.white,
-              ),
-              alignment: Alignment.center,
-              child: Text(
-                days[now.day - 2],
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.w600,
-                  color: index == 2 ? Colors.white : Static.PrimaryColor,
-                ),
-              ),
-            ),
-          ),
+
           InkWell(
             onTap: () {
               setState(() {
@@ -929,9 +883,124 @@ class _DailyState extends State<Daily> {
               ),
             ),
           ),
+
+          InkWell(
+            onTap: () {
+              setState(() {
+                index = 2;
+                today = DateTime(now.year, now.month - 1, today.day);
+              });
+            },
+            child: Container(
+              height: 50.0,
+              width: MediaQuery.of(context).size.width * 0.3,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(
+                  8.0,
+                ),
+                color: index == 2 ? Static.PrimaryColor : Colors.white,
+              ),
+              alignment: Alignment.center,
+              child: Text(
+                days[now.day - 2],
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w600,
+                  color: index == 2 ? Colors.white : Static.PrimaryColor,
+                ),
+              ),
+            ),
+          ),
+
+          InkWell(
+            onTap: () {
+              setState(() {
+                index = 3;
+                today = DateTime(now.year, now.month - 2, today.day);
+              });
+            },
+            child: Container(
+              height: 50.0,
+              width: MediaQuery.of(context).size.width * 0.3,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(
+                  8.0,
+                ),
+                color: index == 3 ? Static.PrimaryColor : Colors.white,
+              ),
+              alignment: Alignment.center,
+              child: Text(
+                days[now.day-3],
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w600,
+                  color: index == 3 ? Colors.white : Static.PrimaryColor,
+                ),
+              ),
+            ),
+          ),
+
+          InkWell(
+            onTap: () {
+              setState(() {
+                index = 4;
+                today = DateTime(now.year, now.month - 2, today.day);
+              });
+            },
+            child: Container(
+              height: 50.0,
+              width: MediaQuery.of(context).size.width * 0.3,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(
+                  8.0,
+                ),
+                color: index == 4 ? Static.PrimaryColor : Colors.white,
+              ),
+              alignment: Alignment.center,
+              child: Text(
+                days[now.day-4],
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w600,
+                  color: index == 4 ? Colors.white : Static.PrimaryColor,
+                ),
+              ),
+            ),
+          ),
+          InkWell(
+            onTap: () {
+              setState(() {
+                index = 5;
+                today = DateTime(now.year, now.month - 1, today.day);
+              });
+            },
+            child: Container(
+              height: 50.0,
+              width: MediaQuery.of(context).size.width * 0.3,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(
+                  8.0,
+                ),
+                color: index == 5 ? Static.PrimaryColor : Colors.white,
+              ),
+              alignment: Alignment.center,
+              child: Text(
+                days[now.day - 5],
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w600,
+                  color: index == 5 ? Colors.white : Static.PrimaryColor,
+                ),
+              ),
+            ),
+          ),
+
         ],
       ),
+    ),
     );
+
+
   }
 }
 

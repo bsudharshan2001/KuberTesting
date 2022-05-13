@@ -13,6 +13,7 @@ import 'package:flutter/rendering.dart';
 import 'package:kuber/static.dart' as Static;
 import 'package:hive/hive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:pie_chart/pie_chart.dart';
 
 
 class Daily extends StatefulWidget {
@@ -35,6 +36,7 @@ class _DailyState extends State<Daily> {
   DateTime today = DateTime.now();
   DateTime now = DateTime.now();
   int index = 1;
+  int carrys = 0;
 
   List<String> months = [
     "Jan",
@@ -126,7 +128,7 @@ class _DailyState extends State<Daily> {
     List tempdataSet = [];
 
     for (TransactionModel item in entireData) {
-      if (item.date.month == today.month && item.type == "Expense") {
+      if (item.date.day == today.day && item.type == "Expense") {
         tempdataSet.add(item);
       }
     }
@@ -387,8 +389,7 @@ class _DailyState extends State<Daily> {
                   ),
                 ),
                 //
-                dataSet.isEmpty || dataSet.length < 2
-                    ? Container(
+                if (dataSet.isEmpty || dataSet.length < 2) Container(
                   padding: EdgeInsets.symmetric(
                     vertical: 40.0,
                     horizontal: 20.0,
@@ -417,8 +418,7 @@ class _DailyState extends State<Daily> {
                       fontSize: 20.0,
                     ),
                   ),
-                )
-                    : Container(
+                ) else Container(
                   height: 400.0,
                   padding: EdgeInsets.symmetric(
                     vertical: 40.0,
@@ -445,7 +445,7 @@ class _DailyState extends State<Daily> {
                       ),
                     ],
                   ),
-                  child: LineChart(
+                  /*child: LineChart(
                     LineChartData(
                       borderData: FlBorderData(
                         show: false,
@@ -466,7 +466,14 @@ class _DailyState extends State<Daily> {
                         ),
                       ],
                     ),
-                  ),
+                  ),*/
+                  
+                  
+                  /*child: PieChart(
+                      dataMap : snapshot.data,
+                      chartType: ChartType.ring,
+
+                  ),*/
                 ),
                 //
                 Padding(
@@ -856,10 +863,13 @@ class _DailyState extends State<Daily> {
 
         children: [
 
+
+
           InkWell(
             onTap: () {
               setState(() {
                 index = 1;
+                carrys = 1;
                 today = DateTime.now();
               });
             },
@@ -888,7 +898,17 @@ class _DailyState extends State<Daily> {
             onTap: () {
               setState(() {
                 index = 2;
-                today = DateTime(now.year, now.month - 1, today.day);
+                if (index > carrys)
+                {
+                  today = DateTime(now.year, now.month , today.day - (index - carrys));
+                  carrys = index;
+                }
+                else if (index < carrys)
+                {
+                  today = DateTime(now.year, now.month , today.day + (carrys - index));
+                  carrys = index;
+                }
+
               });
             },
             child: Container(
@@ -916,7 +936,16 @@ class _DailyState extends State<Daily> {
             onTap: () {
               setState(() {
                 index = 3;
-                today = DateTime(now.year, now.month - 2, today.day);
+                if (index > carrys)
+                {
+                  today = DateTime(now.year, now.month , today.day - (index - carrys));
+                  carrys = index;
+                }
+                else if (index < carrys)
+                {
+                  today = DateTime(now.year, now.month , today.day + (carrys - index));
+                  carrys = index;
+                }
               });
             },
             child: Container(
@@ -944,7 +973,16 @@ class _DailyState extends State<Daily> {
             onTap: () {
               setState(() {
                 index = 4;
-                today = DateTime(now.year, now.month - 2, today.day);
+                if (index > carrys)
+                {
+                  today = DateTime(now.year, now.month , today.day - (index - carrys));
+                  carrys = index;
+                }
+                else if (index < carrys)
+                {
+                  today = DateTime(now.year, now.month , today.day + (carrys - index));
+                  carrys = index;
+                }
               });
             },
             child: Container(
@@ -967,33 +1005,12 @@ class _DailyState extends State<Daily> {
               ),
             ),
           ),
-          InkWell(
-            onTap: () {
-              setState(() {
-                index = 5;
-                today = DateTime(now.year, now.month - 1, today.day);
-              });
-            },
-            child: Container(
-              height: 50.0,
-              width: MediaQuery.of(context).size.width * 0.3,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(
-                  8.0,
-                ),
-                color: index == 5 ? Static.PrimaryColor : Colors.white,
-              ),
-              alignment: Alignment.center,
-              child: Text(
-                days[now.day - 5],
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.w600,
-                  color: index == 5 ? Colors.white : Static.PrimaryColor,
-                ),
-              ),
-            ),
-          ),
+
+
+
+
+
+
 
         ],
       ),

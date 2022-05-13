@@ -153,6 +153,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kuber/viewings/daily.dart';
 import 'package:kuber/static.dart' as Static;
+import 'package:kuber/viewings/monthly.dart';
 
 import '../add_transaction.dart';
 
@@ -234,7 +235,7 @@ class _Visual extends State<Visual> {
               Navigator.of(context)
                   .push(
                 CupertinoPageRoute(
-                  builder: (context) => AddExpenseNoGradient(),
+                  builder: (context) => Monthly(),
                 ),
               )
                   .then((value) {
